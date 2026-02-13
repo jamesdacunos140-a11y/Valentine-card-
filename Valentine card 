@@ -1,0 +1,148 @@
+<Title> Happy Valentine
+<Style>
+body{
+    font-family:'Comic Sans MS',cursive;
+    text-align:center;
+    background:linear-gradient(#ffd6e7,#fff);
+    overflow:hidden;
+}
+h1{margin-top:80px;color:#ff4d88;}
+
+button{
+    padding:15px 30px;
+    font-size:22px;
+    border:none;
+    border-radius:25px;
+    margin:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#continueBtn{background:#ff7aa8;color:white;}
+#yes{background:#ff4d88;color:white;}
+#no{background:#ddd;}
+#nextBtn{background:#ff7aa8;color:white;}
+
+.screen{display:none;}
+#screen1{display:block;}
+
+.letterPage{
+    display:none;
+    width:65%;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(0,0,0,0.2);
+    font-size:22px;
+    animation:fade 1.5s;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* Floating hearts */
+.heart{
+    position:fixed;
+    bottom:-50px;
+    font-size:24px;
+    animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+    from{transform:translateY(0);}
+    to{transform:translateY(-110vh);}
+}
+</Style>
+<!-- Hidden YouTube Music -->
+<iframe id="musicPlayer" width="0" height="0"
+src=""
+frameborder="0" allow="autoplay"></iframe>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen">
+    <h1>Hello anak ko 💛<br>Happy Valentine’s Day 💌</h1>
+    <button id="continueBtn" onclick="goToQuestion()">Continue ➜</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+    <h1>Can you be my Valentine? 💖</h1>
+    <button id="yes" onclick="startExperience()">YES 💕</button>
+    <button id="no" onclick="growYes()">NO 😢</button>
+</div>
+
+<!-- LETTER PAGE 1 -->
+<div id="letter1" class="letterPage">
+    <h2>💌 Message Unlocked</h2>
+    <p>
+    hello anak ko, thanks for pressing yes! Hahaha well happy valentines day anak ko,
+    Smile ka lang palagi ah, and tandaan mo lagi andito si dad mo in every step of the way,
+    through darkness andito lang ako, mahal na mahal ni dad mo.
+    </p>
+    <button id="nextBtn" onclick="showLetterPage2()">Next ➜</button>
+</div>
+
+<!-- LETTER PAGE 2 -->
+<div id="letter2" class="letterPage">
+    <p>
+    Also I am thankful na naging anak kita kasi you are the reason why I still fight and keep fighting.
+    Ikaw yung napagkukunan ko ng lakas sa bawat challenges sa buhay ko that's why I'm so thankful.
+    Smile ka lang palagi anak ah, wag masyadong malungkot kasi mas gumaganda ikaw pag naka smile ka.<br><br>
+
+    Happy Valentine’s Day anak ko 💛<br><br>
+
+    Sincerely,<br>
+    — Dad 💕
+    </p>
+</div>
+
+<script>
+let count = 0;
+
+function goToQuestion(){
+    document.getElementById("screen1").style.display="none";
+    document.getElementById("screen2").style.display="block";
+}
+
+function growYes(){
+    if(count < 4){
+        let yesBtn = document.getElementById("yes");
+        let noBtn = document.getElementById("no");
+
+        yesBtn.style.transform = `scale(${1 + (count+1)*0.4})`;
+        noBtn.style.transform = `scale(${1 - (count+1)*0.2})`;
+
+        count++;
+    }
+}
+
+/* When YES is pressed */
+function startExperience(){
+    // Start music
+    document.getElementById("musicPlayer").src =
+    "https://www.youtube.com/embed/9F3w7lN4WwA?autoplay=1&loop=1&playlist=9F3w7lN4WwA";
+
+    // Show first letter page
+    document.getElementById("screen2").style.display="none";
+    document.getElementById("letter1").style.display="block";
+}
+
+function showLetterPage2(){
+    document.getElementById("letter1").style.display="none";
+    document.getElementById("letter2").style.display="block";
+}
+
+/* Floating hearts generator */
+setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(20+Math.random()*20)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
